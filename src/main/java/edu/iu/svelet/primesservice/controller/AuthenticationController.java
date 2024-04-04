@@ -28,13 +28,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public boolean register(@RequestBody Customer customer) {
+    public Customer register(@RequestBody Customer customer) {
         try{
             System.out.println("Registering customer: " + customer.getUsername());
             return authenticationService.register(customer);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
     @PostMapping("/login")
