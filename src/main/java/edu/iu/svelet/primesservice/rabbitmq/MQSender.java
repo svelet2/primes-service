@@ -1,10 +1,9 @@
 package edu.iu.svelet.primesservice.rabbitmq;
-
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
-
 import java.text.MessageFormat;
-import java.util.Queue;
 
 @Component
 public class MQSender {
@@ -16,10 +15,12 @@ public class MQSender {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendMessage(int n, boolean isPrime){
+    public void sendMessage(int n, boolean isPrime) {
         String message =
                 MessageFormat
-                        .format("n: {0}, isPrime: {1}", n, isPrime);
+                        .format("customer:{0}, n: {1}, isPrime: {2}",
+                                "username", Integer.toString(n), isPrime);
+        message = "{" + message + "}";
         rabbitTemplate.convertAndSend("primes", message);
     }
 

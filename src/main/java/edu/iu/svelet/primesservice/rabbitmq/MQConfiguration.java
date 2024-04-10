@@ -10,6 +10,6 @@ public class MQConfiguration {
 
     @Bean
     public Queue queue() {
-        return new Queue("prime");
+        return new Queue("primes");
     }
 }
